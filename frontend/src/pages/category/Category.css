@@ -1,0 +1,145 @@
+.category-page {
+  padding: 100px 50px 50px;
+  min-height: 100vh;
+  background-color: #141414;
+  color: white;
+}
+
+.category-header {
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.category-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+}
+
+.movie-count {
+  color: #aaa;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.category-movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.category-movie {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  height: 350px;
+}
+
+.category-movie:hover {
+  transform: scale(1.05);
+}
+
+.category-movie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-movie:hover .movie-overlay {
+  opacity: 1;
+}
+
+.movie-overlay h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.movie-overlay p {
+  margin: 0;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.no-movies {
+  text-align: center;
+  padding: 50px;
+}
+
+.no-movies h2 {
+  color: #e50914;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.no-movies p {
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.browse-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.browse-btn:hover {
+  background: #f40612;
+}
+
+@media (max-width: 768px) {
+  .category-page {
+    padding: 80px 20px 30px;
+  }
+  
+  .category-header h1 {
+    font-size: 2rem;
+  }
+  
+  .category-movies {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  
+  .category-movie {
+    height: 250px;
+  }
+  
+  .movie-overlay {
+    padding: 10px;
+  }
+  
+  .movie-overlay h3 {
+    font-size: 1rem;
+  }
+}
