@@ -2,3 +2,8 @@ node_modules/
 .env
 .DS_Store
 *.log
+# Add .env.txt to your .gitignore
+echo ".env.txt" >> .gitignore
+
+# Verify it's added
+cat .gitignore
