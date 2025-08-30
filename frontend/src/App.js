@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import Watch from './pages/watch/Watch';
 import Login from './pages/login/Login';
+import Register from './pages/register/Register'; // MAKE SURE THIS IMPORT EXISTS
 import SearchResults from './pages/search/SearchResults';
 import Category from './pages/category/Category';
 import './App.css';
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/watch/:id" element={<Watch />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} /> {/* MAKE SURE THIS ROUTE EXISTS */}
             <Route path="/search" element={<SearchResults />} />
             <Route path="/category/:category" element={<Category />} />
           </Routes>
@@ -28,5 +30,4 @@ function App() {
   );
 }
 
-// Make sure this export is present
 export default App;

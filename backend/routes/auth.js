@@ -8,10 +8,15 @@ router.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
     
-    // Check if user exists
-    const userExists = await User.findOne({ email });
+    // Check if user already exists
+    const userExists = await User.findOne({ 
+      $or: [{ email }, { username }] 
+    });
+    
     if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ 
+        message: 'User already exists with this email or username' 
+      });
     }
 
     // Hash password
@@ -26,13 +31,32 @@ router.post('/register', async (req, res) => {
     });
 
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    
+    // Create token for auto-login
+    const token = jwt.sign(
+      { id: savedUser._id, isAdmin: savedUser.isAdmin },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    // Return user data without password
+    const { password: _, ...userWithoutPassword } = savedUser._doc;
+    
+    res.status(201).json({
+      token,
+      user: userWithoutPassword,
+      message: 'User created successfully'
+    });
+    
   } catch (err) {
-    res.status(500).json(err);
+    console.error('Registration error:', err);
+    res.status(500).json({ 
+      message: 'Internal server error during registration' 
+    });
   }
 });
 
-// LOGIN
+// LOGIN (keep your existing login code)
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -56,14 +80,12 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
+    // Return user data without password
+    const { password: _, ...userWithoutPassword } = user._doc;
+
     res.status(200).json({
       token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        isAdmin: user.isAdmin,
-      },
+      user: userWithoutPassword,
     });
   } catch (err) {
     res.status(500).json(err);

@@ -32,16 +32,36 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (err) {
-      return { success: false, error: err.response?.data?.message || "Login failed" };
+      return { 
+        success: false, 
+        error: err.response?.data?.message || "Login failed" 
+      };
     }
   };
 
   const register = async (username, email, password) => {
     try {
-      const res = await axios.post("/api/auth/register", { username, email, password });
+      const res = await axios.post("/api/auth/register", { 
+        username, 
+        email, 
+        password 
+      });
+      
+      // Auto-login after successful registration
+      const loginRes = await axios.post("/api/auth/login", { email, password });
+      const { token, user } = loginRes.data;
+      
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setUser(user);
+      
       return { success: true };
     } catch (err) {
-      return { success: false, error: err.response?.data?.message || "Registration failed" };
+      return { 
+        success: false, 
+        error: err.response?.data?.message || "Registration failed" 
+      };
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +47,9 @@ const Login = () => {
         <button type="submit" disabled={loading}>
           {loading ? 'Signing In...' : 'Sign In'}
         </button>
+<p className="register-link">
+  Don't have an account? <Link to="/register">Sign Up</Link>
+</p>
       </form>
     </div>
   );
