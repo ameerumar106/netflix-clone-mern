@@ -6,6 +6,10 @@ const MobileNav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Don't show on auth pages
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  if (isAuthPage) return null;
+
   const isActive = (path) => location.pathname === path;
 
   return (

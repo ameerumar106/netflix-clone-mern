@@ -21,8 +21,11 @@ function App() {
             <Navbar />
             <MobileNav />
             <Routes>
+              {/* Public routes - NO AuthGuard */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              
+              {/* Protected routes - WITH AuthGuard */}
               <Route path="/" element={
                 <AuthGuard>
                   <Home />
@@ -38,7 +41,9 @@ function App() {
                   <SearchResults />
                 </AuthGuard>
               } />
-                            <Route path="*" element={<Navigate to="/login" replace />} />
+              
+              {/* Redirect any unknown route to login */}
+              <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
           </div>
         </Router>

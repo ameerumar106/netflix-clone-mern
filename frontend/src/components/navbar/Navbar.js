@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -8,6 +8,10 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Check if we're on authentication pages
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -23,13 +27,28 @@ const Navbar = () => {
   };
 
   const handleHomeClick = () => {
-    if (user) {
-      navigate('/');
-    } else {
-      navigate('/login');
-    }
+    navigate(user ? '/' : '/login');
   };
 
+  // If on auth page, show only Netflix logo
+  if (isAuthPage) {
+    return (
+      <div className="navbar">
+        <div className="container">
+          <div className="left">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+              alt="Netflix Logo"
+              onClick={handleHomeClick}
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Normal navbar for all other pages
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
@@ -50,10 +69,10 @@ const Navbar = () => {
             </>
           )}
         </div>
+        
         <div className="right">
           {user && (
             <>
-              {/* Search Form */}
               <form onSubmit={handleSearch} className="search-form">
                 <input
                   type="text"
