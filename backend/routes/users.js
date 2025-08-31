@@ -52,5 +52,41 @@ router.get('/', verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
+// ADD TO WATCHLIST
+router.put('/watchlist/add/:userId', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user.watchlist.includes(req.body.movieId)) {
+      await user.updateOne({ $push: { watchlist: req.body.movieId } });
+      res.status(200).json('Added to watchlist');
+    } else {
+      res.status(400).json('Already in watchlist');
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// REMOVE FROM WATCHLIST
+router.put('/watchlist/remove/:userId', verifyToken, async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.userId, {
+      $pull: { watchlist: req.body.movieId }
+    });
+    res.status(200).json('Removed from watchlist');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET WATCHLIST
+router.get('/watchlist/:userId', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).populate('watchlist');
+    res.status(200).json(user.watchlist);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;

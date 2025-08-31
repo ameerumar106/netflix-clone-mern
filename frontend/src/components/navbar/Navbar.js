@@ -22,6 +22,14 @@ const Navbar = () => {
     }
   };
 
+  const handleHomeClick = () => {
+    if (user) {
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className={isScrolled ? "navbar scrolled" : "navbar"}>
       <div className="container">
@@ -29,45 +37,39 @@ const Navbar = () => {
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt="Netflix Logo"
-            onClick={() => navigate('/')}
+            onClick={handleHomeClick}
             style={{ cursor: 'pointer' }}
           />
-          <span onClick={() => navigate('/')}>Home</span>
-          <span>Series</span>
-          <span>Movies</span>
-          <span>New & Popular</span>
-          <span>My List</span>
+          {user && (
+            <>
+              <span onClick={() => navigate('/')}>Home</span>
+              <span>Series</span>
+              <span>Movies</span>
+              <span>New & Popular</span>
+              <span>My List</span>
+            </>
+          )}
         </div>
         <div className="right">
-          {/* Search Form */}
-          <form onSubmit={handleSearch} className="search-form">
-            <input
-              type="text"
-              placeholder="Search movies..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
-            />
-            <button type="submit" className="search-button">
-              🔍
-            </button>
-          </form>
-
-          {user ? (
+          {user && (
             <>
+              {/* Search Form */}
+              <form onSubmit={handleSearch} className="search-form">
+                <input
+                  type="text"
+                  placeholder="Search movies..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
+                />
+                <button type="submit" className="search-button">
+                  🔍
+                </button>
+              </form>
+
               <span>Welcome, {user.username}</span>
               <button onClick={logout}>Logout</button>
             </>
-          ) : (
-            <div className="auth-buttons">
-              <button onClick={() => navigate('/login')}>Sign In</button>
-              <button 
-                onClick={() => navigate('/register')}
-                className="signup-btn"
-              >
-                Sign Up
-              </button>
-            </div>
           )}
         </div>
       </div>

@@ -253,7 +253,38 @@
     font-size: 0.7rem;
   }
 }
+.watchlist-btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border: 1px solid #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
 
+.watchlist-btn:hover {
+  background: #e50914;
+  border-color: #e50914;
+  transform: scale(1.05);
+}
+
+.movie-overlay {
+  /* Ensure overlay has enough space for the new button */
+  padding: 15px;
+}
+
+.movie-overlay h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.9rem;
+}
+
+.movie-overlay p {
+  margin: 0 0 8px 0;
+  font-size: 0.8rem;
+}
 @media (max-width: 480px) {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);

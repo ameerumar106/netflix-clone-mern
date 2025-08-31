@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { useWatchlist } from '../../context/WatchlistContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -10,6 +12,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +52,15 @@ const Home = () => {
     navigate(`/category/${category}`);
   };
 
+  const handleWatchlistClick = (e, movieId) => {
+    e.stopPropagation(); // Prevent navigation to movie page
+    if (isInWatchlist(movieId)) {
+      removeFromWatchlist(movieId);
+    } else {
+      addToWatchlist(movieId);
+    }
+  };
+
   if (loading) {
     return (
       <div className="home" style={{ marginTop: '70px', textAlign: 'center', padding: '50px' }}>
@@ -82,7 +95,14 @@ const Home = () => {
               <button className="play" onClick={() => navigate(`/watch/${featuredMovie._id}`)}>
                 ▶ Play
               </button>
-              <button className="more">+ My List</button>
+              {user && (
+                <button 
+                  className="more"
+                  onClick={(e) => handleWatchlistClick(e, featuredMovie._id)}
+                >
+                  {isInWatchlist(featuredMovie._id) ? '✓ My List' : '+ My List'}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -135,6 +155,14 @@ const Home = () => {
                   <div className="movie-overlay">
                     <h4>{movie.title}</h4>
                     <p>{movie.year} • {movie.genre}</p>
+                    {user && (
+                      <button 
+                        onClick={(e) => handleWatchlistClick(e, movie._id)}
+                        className="watchlist-btn"
+                      >
+                        {isInWatchlist(movie._id) ? '✓ In Watchlist' : '+ Add to Watchlist'}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -151,6 +179,14 @@ const Home = () => {
                   <div className="movie-overlay">
                     <h4>{movie.title}</h4>
                     <p>{movie.year} • {movie.genre}</p>
+                    {user && (
+                      <button 
+                        onClick={(e) => handleWatchlistClick(e, movie._id)}
+                        className="watchlist-btn"
+                      >
+                        {isInWatchlist(movie._id) ? '✓ In Watchlist' : '+ Add to Watchlist'}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -167,6 +203,14 @@ const Home = () => {
                   <div className="movie-overlay">
                     <h4>{movie.title}</h4>
                     <p>{movie.year} • {movie.genre}</p>
+                    {user && (
+                      <button 
+                        onClick={(e) => handleWatchlistClick(e, movie._id)}
+                        className="watchlist-btn"
+                      >
+                        {isInWatchlist(movie._id) ? '✓ In Watchlist' : '+ Add to Watchlist'}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -188,6 +232,14 @@ const Home = () => {
                       <div className="movie-overlay">
                         <h4>{movie.title}</h4>
                         <p>{movie.year} • {movie.genre}</p>
+                        {user && (
+                          <button 
+                            onClick={(e) => handleWatchlistClick(e, movie._id)}
+                            className="watchlist-btn"
+                          >
+                            {isInWatchlist(movie._id) ? '✓ In Watchlist' : '+ Add to Watchlist'}
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}
