@@ -36,15 +36,16 @@ const MovieSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  duration: {
-    type: String,
-    default: "",
+  rating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 10
   },
-  cast: {
-    type: [String],
-    default: [],
+  voteCount: {
+    type: Number,
+    default: 0
   },
-},
-{ timestamps: true });
+}, { timestamps: true });
 
 module.exports = mongoose.model('Movie', MovieSchema);

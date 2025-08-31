@@ -1,0 +1,29 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffd700;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.rating.small {
+  font-size: 12px;
+}
+
+.rating.medium {
+  font-size: 14px;
+}
+
+.rating.large {
+  font-size: 16px;
+}
+
+.rating-value {
+  color: white;
+}
+
+.rating-count {
+  color: #aaa;
+  font-size: 0.9em;
+}

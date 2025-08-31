@@ -5,19 +5,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    min: 3,
-    max: 20,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    max: 50,
   },
   password: {
     type: String,
     required: true,
-    min: 6,
+    minlength: 6,
   },
   profilePic: {
     type: String,
@@ -27,19 +24,30 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  myList: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Movie'
-  }],
-watchlist: [{
+  watchlist: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Movie'
   }],
   favorites: [{
-    type: mongoose.Schema.Types.ObjectId, 
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Movie'
   }],
-},
-{ timestamps: true });
+  continueWatching: [{
+    movie: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Movie'
+    },
+    progress: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 100
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now
+    }
+  }]
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);
