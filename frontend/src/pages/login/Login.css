@@ -12,3 +12,12 @@
 .register-link a:hover {
   text-decoration: underline;
 }
+.welcome-message {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #4CAF50;
+}

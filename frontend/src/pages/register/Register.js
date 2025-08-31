@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 const Register = () => {
@@ -10,6 +10,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -28,13 +29,30 @@ const Register = () => {
     setError('');
 
     const result = await register(username, email, password);
+    
     if (result.success) {
-      navigate('/');
+      setShowSuccess(true);
+      // Auto-redirect to login after 2 seconds
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } else {
       setError(result.error);
     }
     setLoading(false);
   };
+
+  if (showSuccess) {
+    return (
+      <div className="register-container">
+        <div className="success-popup">
+          <div className="success-icon">✓</div>
+          <h2>Account Created Successfully!</h2>
+          <p>Redirecting to login page...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="register-container">
@@ -48,6 +66,7 @@ const Register = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          disabled={loading}
         />
         
         <input
@@ -56,6 +75,7 @@ const Register = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={loading}
         />
         
         <input
@@ -64,6 +84,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={loading}
         />
         
         <input
@@ -72,6 +93,7 @@ const Register = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+          disabled={loading}
         />
         
         <button type="submit" disabled={loading}>
@@ -79,7 +101,7 @@ const Register = () => {
         </button>
         
         <p className="login-link">
-          Already have an account? <Link to="/login">Sign In</Link>
+          Already have an account? <span onClick={() => navigate('/login')} style={{cursor: 'pointer', color: '#e50914'}}>Sign In</span>
         </p>
       </form>
     </div>

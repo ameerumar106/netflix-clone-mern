@@ -126,3 +126,76 @@
     font-size: 12px;
   }
 }
+/* User info and logout button styles */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adds space between all elements in the right section */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between welcome message and logout button */
+}
+
+.welcome-text {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background-color: #e50914;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap; /* Prevents text wrapping */
+}
+
+.logout-btn:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+/* Responsive design for user section */
+@media (max-width: 768px) {
+  .user-info {
+    gap: 10px;
+  }
+  
+  .welcome-text {
+    font-size: 12px;
+  }
+  
+  .logout-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .right {
+    gap: 10px;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-end;
+  }
+  
+  .welcome-text {
+    font-size: 11px;
+  }
+  
+  .logout-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}

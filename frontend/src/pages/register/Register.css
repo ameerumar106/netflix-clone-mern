@@ -94,6 +94,146 @@
   .register-form {
     padding: 30px 20px;
   }
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+  padding: 20px;
+}
+
+.register-form {
+  background-color: rgba(0,0,0,0.8);
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #333;
+}
+
+.success-popup {
+  background-color: rgba(0,0,0,0.8);
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #333;
+  text-align: center;
+  color: white;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.success-popup h2 {
+  color: #4CAF50;
+  margin-bottom: 15px;
+}
+
+.success-popup p {
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+.register-form h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #333;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+}
+
+.register-form input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.register-form input::placeholder {
+  color: #8c8c8c;
+}
+
+.register-form input:focus {
+  outline: none;
+  background-color: #444;
+  border: 1px solid #e50914;
+}
+
+.register-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #e50914;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.register-form button:hover:not(:disabled) {
+  background-color: #f40612;
+}
+
+.register-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e50914;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+  background: rgba(229, 9, 20, 0.1);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login-link {
+  text-align: center;
+  color: #737373;
+  margin-top: 20px;
+}
+
+.login-link span {
+  color: #e50914;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-link span:hover {
+  color: #f40612;
+}
+
+@media (max-width: 480px) {
+  .register-form, .success-popup {
+    padding: 30px 20px;
+  }
+  
+  .register-form h2 {
+    font-size: 1.5rem;
+  }
+  
+  .success-icon {
+    font-size: 3rem;
+  }
+}
   
   .register-form h2 {
     font-size: 1.5rem;

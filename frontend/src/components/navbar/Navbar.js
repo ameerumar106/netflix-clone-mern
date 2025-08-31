@@ -67,8 +67,12 @@ const Navbar = () => {
                 </button>
               </form>
 
-              <span>Welcome, {user.username}</span>
-              <button onClick={logout}>Logout</button>
+              <div className="user-info">
+                <span className="welcome-text">Welcome, {user.username}</span>
+                <button onClick={logout} className="logout-btn">
+                  Logout
+                </button>
+              </div>
             </>
           )}
         </div>
